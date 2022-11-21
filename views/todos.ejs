@@ -10,18 +10,37 @@
 <body>
     <h1>Todos</h1>
     <ul>
+
+    <!-- All rendered input data is being sent from 'todos.js' file in the controllers folder via res.render('todos.ejs') -->
+
+    <!-- Grabs 'todos' (todoItems in 'todos.js') from 'todos.js' file in controllers folder. -->
+    <!-- Run forEach loop on array -->
     <% todos.forEach( el => { %>
+
+        <!-- Create li with class of 'todoItem' and 'data-id' of the unique id given by Mongoose and MongoDB -->
         <li class='todoItem' data-id='<%=el._id%>'>
+
+            <!-- If the span on the element in the array has a completed property equating to true, assign it the 'completed' class  -->
+            <!-- Otherwise, assign it the 'not' class -->
             <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+
+            <!-- Created span with a class of 'del' -->
             <span class='del'> Delete </span>
         </li>
     <% }) %>    
     </ul>
 
+    <!-- Grabs 'left' from res.render (itemsLeft in 'todos.js') -->
+    <!-- Projects how many documents have a completed value of false -->
     <h2>Things left to do: <%= left %></h2>
 
+    <!-- Form with a route of '/todos/createTodo' with a POST request method - accessing createTodo method -->
     <form action="/todos/createTodo" method='POST'>
+
+        <!-- First input - able to parse user input by name value -->
         <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+
+        <!-- Built in submit in HTML -->
         <input type="submit">
     </form>
 

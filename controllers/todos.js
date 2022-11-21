@@ -48,37 +48,62 @@ module.exports = {
         }
     },
 
-    //markComplete asynchronous method
+    //markComplete asynchronous method - complete a todo item 
     markComplete: async (req, res)=>{
         try{
 
             //Await Todo.findOneAndUpdate method
-            //
+            //Find document with id that matches parsed PUT request from user
+            //todoIdFromJSFile is coming from main.js file in public folder (markComplete function)
+            //Set completed property to 'true'
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
                 completed: true
             })
             console.log('Marked Complete')
+
+            //Sends JSON response to main.js file in public folder - markComplete function
             res.json('Marked Complete')
+
+        //Catch error
         }catch(err){
             console.log(err)
         }
     },
+
+    //markIncomplete asynchronous method - mark a complete todo item incomplete
     markIncomplete: async (req, res)=>{
         try{
+
+            //Await Todo.findOneAndUpdate method
+            //Find document with id that matches parsed PUT request from user
+            //todoIDfromJSFile is coming from main.js file in public folder (markIncomplete function)
+            //Set completed property to 'false'
             await Todo.findOneAndUpdate({_id:req.body.todoIdFromJSFile},{
                 completed: false
             })
             console.log('Marked Incomplete')
+            
+            //Sends JSON response to main.js file in public folder - markIncomplete function
             res.json('Marked Incomplete')
+
+        //Catch error
         }catch(err){
             console.log(err)
         }
     },
+
+    //deleteTodo asynchronous method - delete a todo item from database
     deleteTodo: async (req, res)=>{
         console.log(req.body.todoIdFromJSFile)
         try{
+
+            //Await Todo.findOneAndDelete method
+            //Find document with id that matches parsed DELETE request from user
+            //Delete document in database
             await Todo.findOneAndDelete({_id:req.body.todoIdFromJSFile})
             console.log('Deleted Todo')
+
+            //Send JSON response to main.js file in public folder - deleteTodo function
             res.json('Deleted It')
         }catch(err){
             console.log(err)
