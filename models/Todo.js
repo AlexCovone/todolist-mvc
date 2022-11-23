@@ -23,18 +23,17 @@ const TodoSchema = new mongoose.Schema({
   cost: {
     type: Number,
     required: true
-  }
-
-  //***Add budget into todo schema?***
-})
+  }},
+  {collection: 'todos'}
+  );
 
 // // Declare budgetSchema - new Mongoose schema for structure
 const budgetSchema = new mongoose.Schema({
   budget: {
     type: Number,
     required: false,
-  }
-})
+  }},
+  {collection: 'budget'})
 
 //Exports new model of 'Todo' in our created TodoSchema
 module.exports = mongoose.model('Todo', TodoSchema)

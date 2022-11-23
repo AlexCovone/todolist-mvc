@@ -1,8 +1,10 @@
 //Declare 'Todo' - gives access to exports in Todo.js in models folder
+const Budget = require('../models/Todo')
+
 const Todo = require('../models/Todo')
 
 // Declare 'Budget' - gives access to exports in Todo.js in models folder
-const Budget = require('../models/Todo')
+
 
 //Object that holds exported values and functions from this module
 module.exports = {
@@ -15,6 +17,7 @@ module.exports = {
             //Occurs in our Todo.js file in our models folder (see required variable)
             //todoItems is turned into an array (each element is a document) with the help of Mongoose
             const todoItems = await Todo.find()
+            console.log(todoItems)
 
             //Declare itemsLeft - await Todo.countDocuments method.
             //Hard-code completed property to be false
@@ -23,11 +26,10 @@ module.exports = {
             console.log(itemsLeft)
             
             //Declare budgetLeft - await findOne method on Budget model in Todo.js file in models folder
-            let budgetLeft = await Budget.findOne({})
+            //If there is not user inputted budget, we will default set the budget to be 0 to avoid null value
+            let budgetLeft = await Budget.findOne({}) || {budget: 0}
             console.log(budgetLeft)
 
-
-            //Insert conditional here to check for null value - no user inputted object?
 
             //Declare total - Takes budgetLeft object and retrieves budget property
             let total = budgetLeft.budget
@@ -51,7 +53,7 @@ module.exports = {
             //Await Todo.create method
             //Occurs in our Todo.js file in our models folder (see required variable)
             //Parses user request via form and assign to todo in object. Hard-coded completed property to be false
-            await Todo.create({todo: req.body.todoItem, cost: req.body.cost, completed: false, })
+            await Todo.create({todo: req.body.todoItem, cost: req.body.cost, completed: false,})
             console.log('Todo has been added!')
 
             //Response redirect function - redirects to /todos route
