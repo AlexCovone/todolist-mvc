@@ -1,6 +1,9 @@
 //Declare 'Todo' - gives access to exports in Todo.js in models folder
 const Todo = require('../models/Todo')
 
+// Declare 'Budget' - gives access to exports in Todo.js in models folder
+const Budget = require('../models/Todo')
+
 //Object that holds exported values and functions from this module
 module.exports = {
 
@@ -17,11 +20,15 @@ module.exports = {
             //Hard-code completed property to be false
             //Occurs in our Todo.js file in our models folder (see required variable)
             const itemsLeft = await Todo.countDocuments({completed: false})
+            console.log(itemsLeft)
+            
+            const budgetLeft = await Budget.find()
+            console.log(budgetLeft)
 
             //Response - render method.
             //Use 'todos.ejs' in our views folder
             //Render response object - todoItems is renamed 'todos', itemsLeft is renamed 'left' in our todos.ejs file
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft})
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, budget: budgetLeft})
 
         //Catch error
         }catch(err){
@@ -43,6 +50,25 @@ module.exports = {
             res.redirect('/todos')
 
         //Catch error
+        }catch(err){
+            console.log(err)
+        }
+    },
+
+    // createBudget asynchronous method
+    createBudget: async (req, res) => {
+        try{
+
+            //Await Budget.create method
+            //Occurs in our Todo.js file in our models folder (see required Budget variable)
+            //Parses user request via form and assign to Budget in object.
+            await Budget.create({budget: req.body.budget})
+            console.log('Budget Created!')
+
+            //Response redirect function - redirects to /todos route
+            res.redirect('/todos')
+
+        // Catch error
         }catch(err){
             console.log(err)
         }
@@ -109,4 +135,4 @@ module.exports = {
             console.log(err)
         }
     }
-}    
+}  

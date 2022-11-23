@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Todos</h1>
+    <h1>Budget Tracker</h1>
     <ul>
 
     <!-- All rendered input data is being sent from 'todos.js' file in the controllers folder via res.render('todos.ejs') -->
@@ -32,13 +32,29 @@
 
     <!-- Grabs 'left' from res.render (itemsLeft in 'todos.js') -->
     <!-- Projects how many documents have a completed value of false -->
-    <h2>Things left to do: <%= left %></h2>
+    <h2>Money Left: <%= left %></h2>
+    <h2>Budget Remaining: <% budget %></h2>
+
+    <!-- Form with a route of '' with a POST request method - accessing '' method -->
+    <form action="/todos/createBudget" method="POST">
+
+        <!-- Input (budget allocated) - able to parse user input by name value -->
+        <input type="number" step="0.1" placeholder="Budget Allocated" name="budget">
+
+        <input type="submit" value="Set Budget">
+
+    </form>
+
+    <br>
 
     <!-- Form with a route of '/todos/createTodo' with a POST request method - accessing createTodo method -->
     <form action="/todos/createTodo" method='POST'>
 
         <!-- First input - able to parse user input by name value -->
-        <input type="text" placeholder="Enter Todo Item" name='todoItem'>
+        <input type="text" placeholder="Enter Item Name" name='todoItem'>
+
+        <!-- Second input (cost of item) - able to parse user input by name value -->
+        <input type="number" step="0.1" placeholder="Enter Item Cost" name="cost">
 
         <!-- Built in submit in HTML -->
         <input type="submit">

@@ -19,7 +19,20 @@ const TodoSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   }
+
+  //***Add budget into todo schema?***
+})
+
+// // Declare budgetSchema - new Mongoose schema for structure
+const budgetSchema = new mongoose.Schema({
+  budget: {
+    type: Number,
+    required: false,
+  }
 })
 
 //Exports new model of 'Todo' in our created TodoSchema
 module.exports = mongoose.model('Todo', TodoSchema)
+
+//Exports new model of 'Budget' in our created budgetSchema
+module.exports = mongoose.model('Budget', budgetSchema)
