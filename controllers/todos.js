@@ -22,13 +22,21 @@ module.exports = {
             const itemsLeft = await Todo.countDocuments({completed: false})
             console.log(itemsLeft)
             
-            const budgetLeft = await Budget.find()
+            //Declare budgetLeft - await findOne method on Budget model in Todo.js file in models folder
+            let budgetLeft = await Budget.findOne({})
             console.log(budgetLeft)
+
+
+            //Insert conditional here to check for null value - no user inputted object?
+
+            //Declare total - Takes budgetLeft object and retrieves budget property
+            let total = budgetLeft.budget
+            console.log(total)
 
             //Response - render method.
             //Use 'todos.ejs' in our views folder
             //Render response object - todoItems is renamed 'todos', itemsLeft is renamed 'left' in our todos.ejs file
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, budget: budgetLeft})
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, budget: total})
 
         //Catch error
         }catch(err){
@@ -43,7 +51,7 @@ module.exports = {
             //Await Todo.create method
             //Occurs in our Todo.js file in our models folder (see required variable)
             //Parses user request via form and assign to todo in object. Hard-coded completed property to be false
-            await Todo.create({todo: req.body.todoItem, completed: false})
+            await Todo.create({todo: req.body.todoItem, cost: req.body.cost, completed: false, })
             console.log('Todo has been added!')
 
             //Response redirect function - redirects to /todos route

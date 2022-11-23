@@ -18,6 +18,11 @@ const TodoSchema = new mongoose.Schema({
   completed: {
     type: Boolean,
     required: true,
+  },
+
+  cost: {
+    type: Number,
+    required: true
   }
 
   //***Add budget into todo schema?***

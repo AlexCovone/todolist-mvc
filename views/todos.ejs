@@ -33,7 +33,7 @@
     <!-- Grabs 'left' from res.render (itemsLeft in 'todos.js') -->
     <!-- Projects how many documents have a completed value of false -->
     <h2>Money Left: <%= left %></h2>
-    <h2>Budget Remaining: <% budget %></h2>
+    <h2>Budget Remaining: <%= budget %></h2>
 
     <!-- Form with a route of '' with a POST request method - accessing '' method -->
     <form action="/todos/createBudget" method="POST">
