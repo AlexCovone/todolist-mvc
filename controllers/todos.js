@@ -1,5 +1,5 @@
 //Declare 'Todo' - gives access to exports in Todo.js in models folder
-const Budget = require('../models/Todo')
+const Budget = require('../models/Budget')
 
 const Todo = require('../models/Todo')
 
@@ -19,6 +19,13 @@ module.exports = {
             const todoItems = await Todo.find()
             console.log(todoItems)
 
+            //Sum all item cost
+            let totalCost = 0;
+            for(const item of todoItems){
+                totalCost += (item.cost)
+            }
+            console.log(totalCost)
+
             //Declare itemsLeft - await Todo.countDocuments method.
             //Hard-code completed property to be false
             //Occurs in our Todo.js file in our models folder (see required variable)
@@ -31,14 +38,17 @@ module.exports = {
             console.log(budgetLeft)
 
 
-            //Declare total - Takes budgetLeft object and retrieves budget property
-            let total = budgetLeft.budget
-            console.log(total)
+            //Declare startingBudget - Takes budgetLeft object and retrieves budget property
+            let startingBudget = budgetLeft.budget
+            console.log(startingBudget)
+
+            //Declare remainingBudget = takes startingBudget value and subtracts totalCost of items from it
+            let remainingBudget = startingBudget - totalCost
 
             //Response - render method.
             //Use 'todos.ejs' in our views folder
             //Render response object - todoItems is renamed 'todos', itemsLeft is renamed 'left' in our todos.ejs file
-            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, budget: total})
+            res.render('todos.ejs', {todos: todoItems, left: itemsLeft, budget: remainingBudget})
 
         //Catch error
         }catch(err){
