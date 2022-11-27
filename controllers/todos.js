@@ -32,7 +32,7 @@ module.exports = {
             const itemsLeft = await Todo.countDocuments({completed: false})
             console.log(itemsLeft)
             
-            //Declare budgetLeft - await findOne method on Budget model in Todo.js file in models folder
+            //Declare budgetLeft - await findOne method on Budget model in Budget.js file in the models folder
             //If there is not user inputted budget, we will default set the budget to be 0 to avoid null value
             let budgetLeft = await Budget.findOne({}) || {budget: 0}
             console.log(budgetLeft)
